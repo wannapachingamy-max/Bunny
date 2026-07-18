@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Me to You 🩷</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffe6e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* ตกแต่งพื้นหลังด้วยหัวใจลอยๆ */
+        .bg-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .heart-float {
+            position: absolute;
+            font-size: 20px;
+            color: #ffb3c1;
+            animation: floatUp 6s linear infinite;
+            bottom: -50px;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* กล่องจดหมาย */
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: #ff85a1;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* ฝาซองจดหมาย */
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            z-index: 3;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 100px solid #ff99b2;
+            transform-origin: top;
+            transition: transform 0.4s ease 0.2s;
+        }
+
+        /* ปีกซองจดหมายด้านข้างและล่าง */
+        .envelope::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            z-index: 2;
+            border-left: 150px solid #ff6384;
+            border-right: 150px solid #ff6384;
+            border-bottom: 100px solid #ff6384;
+            border-top: 100px solid transparent;
+            border-radius: 0 0 10px 10px;
+        }
+
+        /* กระดาษจดหมายด้านใน */
+        .letter {
+            position: absolute;
+            left: 15px;
+            bottom: 10px;
+            width: 270px;
+            height: 180px;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            z-index: 1;
+            transition: transform 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .letter p {
+            font-size: 18px;
+            color: #ff477e;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        .click-me {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff477e;
+            font-weight: bold;
+            font-size: 14px;
+            background: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* สเตทตอนเปิดจดหมาย (เมื่อกดคลิก) */
+        .envelope-wrapper.open .envelope::before {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .envelope-wrapper.open .letter {
+            transform: translateY(-90px);
+            z-index: 2;
+        }
+
+        .envelope-wrapper.open .click-me {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- เอฟเฟกต์หัวใจลอยพื้นหลัง -->
+    <div class="bg-hearts" id="heartsContainer"></div>
+
+    <!-- ตัวซองจดหมาย -->
+    <div class="envelope-wrapper" onclick="toggleEnvelope(this)">
+        <div class="envelope">
+            <div class="letter">
+                <p>ถึงเคะบัน 🩷</p>
+                <p>คิดถึงนะครับ ^^</p>
+            </div>
+        </div>
+        <div class="click-me">จิ้มเปิดซองจดหมายตรงนี้เยย 💌</div>
+    </div>
+
+    <script>
+        // ฟังก์ชันเปิด-ปิดซองจดหมาย
+        function toggleEnvelope(element) {
+            element.classList.toggle('open');
+        }
+
+        // สคริปต์สร้างหัวใจลอยๆ แรนดอมตำแหน่ง
+        const container = document.getElementById('heartsContainer');
+        const heartSymbols = ['🩷', '❤️', '🌸', '✨'];
+        
+        for (let i = 0; i < 20; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-float');
+            heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+            container.appendChild(heart);
+        }
+    </script>
+</body>
+</html>
+
