@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -118,18 +118,20 @@
             line-height: 1.6;
         }
 
+        /* ป้ายขาวบอกให้กด (ปรับแก้ตำแหน่งและขนาดใหม่ตรงนี้แล้วครับ) */
         .click-me {
             position: absolute;
-            bottom: -40px;
+            bottom: -65px;
             left: 50%;
             transform: translateX(-50%);
             color: #ff477e;
             font-weight: bold;
             font-size: 14px;
             background: white;
-            padding: 5px 15px;
+            padding: 8px 18px;
             border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            white-space: nowrap;
             animation: bounce 1.5s infinite;
         }
 
@@ -138,7 +140,7 @@
             50% { transform: translateX(-50%) translateY(-5px); }
         }
 
-        /* สเตทตอนเปิดจดหมาย (เมื่อกดคลิก) */
+        /* สเตทตอนเปิดจดหมาย */
         .envelope-wrapper.open .envelope::before {
             transform: rotateX(180deg);
             z-index: 0;
@@ -192,4 +194,3 @@
     </script>
 </body>
 </html>
-
